@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Evidence Preview</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <link rel="stylesheet" href="submit-evidence.css" />
+
+</head>
+<body>
+  <h2>
+  <img src="Evident-Proof-Client/assets/parcel-80.png" alt="Dispatch" style="height: 24px; vertical-align: middle; margin-right: 1px;">
+  Dispatch Evidence
+  </h2>
+
+  <p>Below is the data prepared for submission to Evident Proof</p> 
+  <div id="loader-overlay">
+    <div class="spinner"></div> 
+  </div>
+
+  <div id="content" style="display: none;"></div> 
+  <div style="margin-bottom: 12px;">
+    <span id="downloadBtn" style="color: #2564cf; text-decoration: none; cursor: pointer; font-size: 0.95rem;">
+      ⬇️ Download Evidence
+    </span>
+  </div>
+<div id="buttons" style="display: none; margin-top: 20px; width: 100%;">  
+  <button class="dispatch-btn" id="dispatchBtn" style="width: 100%; display: flex; align-items: center; justify-content: center;">
+    <span style="display: inline-block; margin-right: 8px; transform: rotate(-90deg)">
+      ⤵ 
+    </span>  
+    Dispatch Evidence
+  </button>
+</div>
+
+<!-- 🔽 Add this just after buttons -->
+<div id="status" class="status" style="display: none; margin-top: 10px; font-weight: 600;"></div> 
+  <script src="submit-evidence.js"></script>
+
+</body>
+</html>
