@@ -125,14 +125,14 @@ function triggerDownload(filename, content) {
   a.href = url;
 
   // Safari fallback: if 'download' doesn't work, open in new tab
-  if (typeof a.download === "undefined") {
+  //if (typeof a.download === "undefined") {
     window.open(url);
-  } else {
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  }
+  //} else {
+    //a.download = filename;
+    //document.body.appendChild(a);
+   // a.click();
+   // document.body.removeChild(a);
+  //}
 
   window.URL.revokeObjectURL(url);
 }
