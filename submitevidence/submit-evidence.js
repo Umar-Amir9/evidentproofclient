@@ -103,26 +103,38 @@
 
         document.getElementById("buttons").style.display = "flex";
       }); 
-      document.getElementById("downloadBtn").addEventListener("click", () => {
-        if (!evidence || evidence.length === 0) return;
+     document.getElementById("downloadBtn").addEventListener("click", () => {
+  if (!evidence || evidence.length === 0) return;
 
-        let textContent = "\n";
-        evidence.forEach(({ key, value }) => {
-          textContent += `${key}:\n${value}\n\n`;
-        });
+  let textContent = "\n";
+  evidence.forEach(({ key, value }) => {
+    textContent += `${key}:\n${value}\n\n`;
+  });
 
-        const blob = new Blob([textContent], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        const now = new Date();
-		const timestamp = now.toISOString().replace(/[:.]/g, "-").slice(0, 16); // e.g., 2025-07-11T16-42
-		link.download = `evidence_${timestamp}.txt`;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
-      });
+  const now = new Date();
+  const timestamp = now.toISOString().replace(/[:.]/g, "-").slice(0, 16);
+  const filename = `evidence_${timestamp}.txt`;
+
+  triggerDownload(filename, textContent);
+});
+function triggerDownload(filename, content) {
+  const blob = new Blob([content], { type: "text/plain" });
+  const url = window.URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+
+  // Safari fallback: if 'download' doesn't work, open in new tab
+  if (typeof a.download === "undefined") {
+    window.open(url);
+  } else {
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  window
 
  
       function dispatchEvidence(payload, apiKey) {
