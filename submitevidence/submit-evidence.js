@@ -134,7 +134,9 @@ function triggerDownload(filename, content) {
     document.body.removeChild(a);
   }
 
-  window
+  window.URL.revokeObjectURL(url);
+}
+
 
  
       function dispatchEvidence(payload, apiKey) {
