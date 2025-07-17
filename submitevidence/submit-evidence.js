@@ -23,6 +23,7 @@
 
       return; // Stop execution
     }
+	 document.getElementById("downloadBtn").style.display = "none";
     const item = Office.context.mailbox.item;
     const evidence = [];
     let payload = null;
