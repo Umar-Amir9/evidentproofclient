@@ -103,7 +103,7 @@
 
         document.getElementById("buttons").style.display = "flex";
       }); 
-     document.getElementById("downloadBtn").addEventListener("click", () => {
+  document.getElementById("downloadBtn").addEventListener("click", () => {
   if (!evidence || evidence.length === 0) return;
 
   let textContent = "\n";
@@ -111,31 +111,32 @@
     textContent += `${key}:\n${value}\n\n`;
   });
 
+  const blob = new Blob([textContent], { type: "text/plain" });
+  const url = URL.createObjectURL(blob);
   const now = new Date();
   const timestamp = now.toISOString().replace(/[:.]/g, "-").slice(0, 16);
   const filename = `evidence_${timestamp}.txt`;
 
-  triggerDownload(filename, textContent);
-});
-function triggerDownload(filename, content) {
-  const blob = new Blob([content], { type: "text/plain" });
-  const url = window.URL.createObjectURL(blob);
+  const isSafariMac = /^((?!chrome|android).)*safari/i.test(navigator.userAgent) && navigator.platform.toUpperCase().indexOf('MAC') >= 0;
 
-  const a = document.createElement("a");
-  a.href = url;
-
-  // Safari fallback: if 'download' doesn't work, open in new tab
-  if (typeof a.download === "undefined") {
-    window.open(url);
+  if (isSafariMac) {
+    // Use window.open for Safari on macOS (requires pop-ups enabled)
+    const newTab = window.open(url);
+    if (!newTab) {
+      alert("Please allow pop-ups in Safari to enable the file download.");
+    }
   } else {
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    // Default download method for Windows/Chrome/Edge etc.
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
-  window.URL.revokeObjectURL(url);
-}
+  URL.revokeObjectURL(url);
+});
 
 
  
